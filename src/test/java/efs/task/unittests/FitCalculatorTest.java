@@ -160,7 +160,6 @@ class FitCalculatorTest {
         Assertions.assertArrayEquals(expectedScores, result, 0.01);
     }
 }
-}
 class PlannerTest {
 
     private Planner planner;
