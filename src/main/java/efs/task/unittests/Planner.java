@@ -1,6 +1,6 @@
 package efs.task.unittests;
 
-class Planner {
+public class Planner {
 
     private int calculateProtein(int bmr) {
         int proteinPercentage = 20;
