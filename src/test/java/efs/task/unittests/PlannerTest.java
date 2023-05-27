@@ -1,3 +1,14 @@
+import efs.task.unittests.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 class PlannerTest {
 
     private Planner planner;
@@ -7,31 +18,30 @@ class PlannerTest {
         planner = new Planner();
     }
 
-    @ParameterizedTest(name = "calculateDailyCaloriesDemand should return correct calorie demand for activity level {0}")
-    @EnumSource(ActivityLevel.class)
-    void calculateDailyCaloriesDemand_ShouldReturnCorrectCalorieDemand(ActivityLevel activityLevel) {
+    @ParameterizedTest(name = "ActivityLevel={0}")
+    @CsvSource({"LOW_ACTIVITY", "MEDIUM_ACTIVITY", "HIGH_ACTIVITY"})
+    void shouldCalculateDailyCaloriesDemand(ActivityLevel level) {
         // Given
         User user = TestConstants.TEST_USER;
+        int expectedCalories = TestConstants.CALORIES_ON_ACTIVITY_LEVEL.get(level);
 
         // When
-        double result = planner.calculateDailyCaloriesDemand(user, activityLevel);
+        int result = planner.calculateDailyCaloriesDemand(user, level);
 
         // Then
-        double expectedCalories = TestConstants.CALORIES_ON_ACTIVITY_LEVEL.get(activityLevel);
-        Assertions.assertEquals(expectedCalories, result, 0.01);
+        assertEquals(expectedCalories, result);
     }
 
     @Test
-    @DisplayName("calculateDailyIntake should return correct daily nutrient intake")
-    void calculateDailyIntake_ShouldReturnCorrectDailyNutrientIntake() {
+    void shouldCalculateDailyIntake() {
         // Given
         User user = TestConstants.TEST_USER;
+        DailyIntake expectedIntake = TestConstants.TEST_USER_DAILY_INTAKE;
 
         // When
-        NutrientIntake result = planner.calculateDailyIntake(user);
+        DailyIntake result = planner.calculateDailyIntake(user);
 
         // Then
-        NutrientIntake expectedIntake = TestConstants.TEST_USER_DAILY_INTAKE;
-        Assertions.assertEquals(expectedIntake, result);
+        assertEquals(expectedIntake, result);
     }
 }
