@@ -130,7 +130,7 @@ class FitCalculatorTest {
 
         // Then
         User expectedUser = new User("John", 97.3, 1.79);
-        assertEquals(expectedUser, result);
+        Assertions.assertEquals(expectedUser, result);
     }
 
     @Test
@@ -143,7 +143,7 @@ class FitCalculatorTest {
         User result = FitCalculator.findUserWithTheWorstBMI(users);
 
         // Then
-       Assertions.assertNull(result);
+        Assertions.assertNull(result);
     }
 
     @Test
@@ -157,6 +157,7 @@ class FitCalculatorTest {
 
         // Then
         double[] expectedScores = TestConstants.TEST_USERS_BMI_SCORE;
-        assertArrayEquals(expectedScores, result, 0.01);
+        Assertions.assertArrayEquals(expectedScores, result, 0.01);
     }
+}
 }
