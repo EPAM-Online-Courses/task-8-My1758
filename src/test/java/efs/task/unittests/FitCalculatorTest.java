@@ -43,7 +43,7 @@ class FitCalculatorTest {
         boolean recommended = FitCalculator.isBMICorrect(weight, height);
 
         //then
-     assertTrue(recommended);
+     Assertions.assertTrue(recommended);
 
     @Test
     @DisplayName("isBMICorrect should return true for valid BMI")
@@ -56,7 +56,7 @@ class FitCalculatorTest {
         boolean result = FitCalculator.isBMICorrect(weight, height);
 
         // Then
-        assertTrue(result);
+        Assertions.assertTrue(result);
     }
 
     @Test
@@ -96,7 +96,7 @@ class FitCalculatorTest {
         boolean result = FitCalculator.isBMICorrect(weight, height);
 
         // Then
-        assertTrue(result);
+        Assertions.assertTrue(result);
     }
 
     @ParameterizedTest(name = "isBMICorrect should return false for height={0} and weight={1}")
@@ -116,7 +116,7 @@ class FitCalculatorTest {
         boolean result = FitCalculator.isBMICorrect(weight, height);
 
         // Then
-        assertFalse(result);
+        Assertions.assertFalse(result);
     }
 
     @Test
@@ -143,7 +143,7 @@ class FitCalculatorTest {
         User result = FitCalculator.findUserWithTheWorstBMI(users);
 
         // Then
-       assertNull(result);
+       Assertions.assertNull(result);
     }
 
     @Test
