@@ -8,6 +8,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 import efs.task.unittests.Planner;
 
 import java.util.List;
+import efs.task.unittests.ActivityLevel;
+import efs.task.unittests.User;
 
 import static org.junit.jupiter.api.Assertions.*;
 class PlannerTest {
