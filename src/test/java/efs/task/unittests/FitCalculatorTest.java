@@ -33,18 +33,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class FitCalculatorTest {
+
+    @Test
     void shouldReturnTrue_whenDietRecommended() {
-        //given
-        double weight = 89.2;
-      double height = 1.72;
+        // Given
+        double weight = 70.0;
+        double height = 1.75;
 
-        //when
-        boolean recommended = FitCalculator.isBMICorrect(weight, height);
+        // When
+        boolean result = FitCalculator.isBMICorrect(weight, height);
 
-        //then
-     assertTrue(recommended);
+        // Then
+        assertTrue(result);
+    }
 
-     @Test
+    @Test
     void shouldReturnFalse_whenDietNotRecommended() {
         // Given
         double weight = 69.5;
