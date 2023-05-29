@@ -23,6 +23,7 @@ class FitCalculatorTest {
         //then
         assertTrue(recommended);
     }
+    
 
     @Test
     void shouldReturnFalse_whenBMIIsNotCorrect() {
