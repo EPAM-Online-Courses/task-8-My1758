@@ -1,50 +1,42 @@
-import efs.task.unittests.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
-import efs.task.unittests.Planner;
+package efs.task.unittests;
 
-import java.util.List;
-import efs.task.unittests.ActivityLevel;
-import efs.task.unittests.User;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 class PlannerTest {
-
-    private Planner planner;
-
+    Planner planner = new Planner();
     @BeforeEach
-    void setUp() {
+    public void setup() {
         planner = new Planner();
     }
-
-    @ParameterizedTest(name = "ActivityLevel={0}")
-    @CsvSource({"LOW_ACTIVITY", "MEDIUM_ACTIVITY", "HIGH_ACTIVITY"})
-    void shouldCalculateDailyCaloriesDemand(ActivityLevel level) {
-        // Given
+    @ParameterizedTest(name = "acctivityLevel={0}")
+    @EnumSource(ActivityLevel.class)
+    void shouldCalculateDailyCaloriesDemand(ActivityLevel activityLevel) {
+        //given
         User user = TestConstants.TEST_USER;
-        int expectedCalories = TestConstants.CALORIES_ON_ACTIVITY_LEVEL.get(level);
-
-        // When
-        int result = planner.calculateDailyCaloriesDemand(user, level);
-
-        // Then
-        assertEquals(expectedCalories, result);
+        int caloriesDemand = TestConstants.CALORIES_ON_ACTIVITY_LEVEL.get(activityLevel);
+        //when
+        int calculateDemand = planner.calculateDailyCaloriesDemand(user, activityLevel);
+        //then
+        assertEquals(caloriesDemand, calculateDemand);
     }
-
     @Test
-    void shouldCalculateDailyIntake() {
-        // Given
+    void shouldcalculateDailyIntake() {
+        //given
         User user = TestConstants.TEST_USER;
-        DailyIntake expectedIntake = TestConstants.TEST_USER_DAILY_INTAKE;
-
-        // When
-        DailyIntake result = planner.calculateDailyIntake(user);
-
-        // Then
-        assertEquals(expectedIntake, result);
+        DailyIntake dailyIntake = TestConstants.TEST_USER_DAILY_INTAKE;
+        //when
+        DailyIntake dailyIntakeByMethods = planner.calculateDailyIntake(user);
+        //then
+        assertAll(
+                () -> assertEquals(dailyIntake.getCalories(), dailyIntakeByMethods.getCalories()),
+                () -> assertEquals(dailyIntake.getProtein(), dailyIntakeByMethods.getProtein()),
+                () -> assertEquals(dailyIntake.getFat(), dailyIntakeByMethods.getFat()),
+                () -> assertEquals(dailyIntake.getCarbohydrate(), dailyIntakeByMethods.getCarbohydrate())
+        );
     }
 }
